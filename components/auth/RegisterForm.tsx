@@ -63,7 +63,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="w-[400px] rounded-2xl shadow-2xl p-8 bg-white">
+    <div className="w-96 rounded-2xl shadow-2xl p-8 bg-white">
       <h1 className="text-3xl font-medium text-center mb-8">Register</h1>
 
       <form className="space-y-5" onSubmit={handleSubmit}>

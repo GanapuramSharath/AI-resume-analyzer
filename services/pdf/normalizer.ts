@@ -135,22 +135,27 @@ function normalizeCertifications(
 /**
  * Normalize Resume
  */
-export function normalizeResume(data: RawResume): Resume {
+/**
+ * Normalize Resume
+ */
+export function normalizeResume(data: RawResume | Resume): Resume {
+  const resume = data as Record<string, unknown>;
+
   return {
-    contact: normalizeContact(data.contact),
+    contact: normalizeContact(resume.contact),
 
-    summary: String(data.summary ?? ""),
+    summary: String(resume.summary ?? ""),
 
-    skills: normalizeSkills(data.skills),
+    skills: normalizeSkills(resume.skills),
 
-    projects: normalizeProjects(data.projects),
+    projects: normalizeProjects(resume.projects),
 
-    experience: normalizeExperience(data.experience),
+    experience: normalizeExperience(resume.experience),
 
-    education: normalizeEducation(data.education),
+    education: normalizeEducation(resume.education),
 
-    certifications: normalizeCertifications(data.certifications),
+    certifications: normalizeCertifications(resume.certifications),
 
-    achievements: toArray(data.achievements),
+    achievements: toArray(resume.achievements),
   };
 }

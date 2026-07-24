@@ -135,7 +135,7 @@ function normalizeCertifications(
 /**
  * Normalize Resume
  */
-export function normalizeResume(data: RawResume): Resume {
+export function normalizeResume(data: RawResume | Resume): Resume {
   return {
     contact: normalizeContact(data.contact),
 
