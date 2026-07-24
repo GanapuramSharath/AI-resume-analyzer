@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "./GoogleLoginButton";
-
+import { signIn } from "next-auth/react";
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
