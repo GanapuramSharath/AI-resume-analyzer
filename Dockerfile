@@ -3,43 +3,32 @@
 # ==========================
 FROM node:22-alpine
 
-# ==========================
-# Install OpenSSL
-# Prisma requires OpenSSL
-# ==========================
 RUN apk add --no-cache openssl
 
-# ==========================
-# Working Directory
-# ==========================
 WORKDIR /app
-
-# ==========================
-# Copy package files
-# ==========================
-COPY package*.json ./
 
 # ==========================
 # Install dependencies
 # ==========================
+COPY package*.json ./
+
 RUN npm install
 
 # ==========================
-# Copy project
+# Copy source
 # ==========================
 COPY . .
 
 # ==========================
-# Generate Prisma Client
+# Prisma
 # ==========================
 RUN npx prisma generate
 
 # ==========================
-# Next.js Port
+# Build Next.js
 # ==========================
+RUN npm run build
+
 EXPOSE 3000
 
-# ==========================
-# Start Application
-# ==========================
-CMD ["npm","run","dev"]
+CMD ["npm","start"]
