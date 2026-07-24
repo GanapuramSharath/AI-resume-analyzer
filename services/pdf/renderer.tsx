@@ -9,9 +9,6 @@ import { buildSummary } from "./sections/summary";
 import { buildSkills } from "./sections/skills";
 import { buildProjects } from "./sections/projects";
 import { buildExperience } from "./sections/experience";
-import { buildEducation } from "./sections/education";
-import { buildCertifications } from "./sections/certifications";
-import { buildAchievements } from "./sections/achievements";
 
 export function renderResume(tailoring: Tailoring, resume: Resume) {
   return (
@@ -19,7 +16,7 @@ export function renderResume(tailoring: Tailoring, resume: Resume) {
       <Page size="A4" style={styles.page}>
         {buildTitle(tailoring, resume)}
 
-        {buildContact(tailoring, resume)}
+        {buildContact(resume)}
 
         {buildSummary(resume)}
         

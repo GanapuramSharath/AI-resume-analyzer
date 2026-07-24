@@ -1,23 +1,19 @@
 import { Text, View } from "@react-pdf/renderer";
 
-import { Tailoring, Resume } from "../types";
+import { Resume } from "../types";
 import { styles } from "../styles";
 
-export function buildContact(tailoring: Tailoring, resume: Resume) {
-  const contact = resume.contact ?? {
-    email: tailoring.resume.email,
-    phone: tailoring.resume.phone,
-    linkedin: tailoring.resume.linkedin,
-    github: tailoring.resume.github,
-    portfolio: tailoring.resume.portfolio,
-  };
+export function buildContact(resume: Resume) {
+  if (!resume.contact) {
+    return null;
+  }
 
   const details = [
-    contact.phone,
-    contact.email,
-    contact.linkedin,
-    contact.github,
-    contact.portfolio,
+    resume.contact.phone,
+    resume.contact.email,
+    resume.contact.linkedin,
+    resume.contact.github,
+    resume.contact.portfolio,
   ].filter(Boolean);
 
   if (details.length === 0) {
