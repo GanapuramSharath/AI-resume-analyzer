@@ -146,7 +146,7 @@ parsed.tailoredResume = rewrittenResume;
    ...structuredResume,
    ...rewrittenResume,
 
-   contact: structuredResume.contact,
+   
    skills: structuredResume.skills,
    education: structuredResume.education,
    certifications: structuredResume.certifications,
