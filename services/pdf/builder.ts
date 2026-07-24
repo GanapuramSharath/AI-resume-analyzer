@@ -1,7 +1,9 @@
 import { pdf } from "@react-pdf/renderer";
 
 export async function buildDocument(document: JSX.Element, fileName: string) {
-  const buffer = await pdf(document).toBuffer();
+  const stream = await pdf(document).toBlob();
+
+  const buffer = Buffer.from(await stream.arrayBuffer());
 
   return {
     buffer,

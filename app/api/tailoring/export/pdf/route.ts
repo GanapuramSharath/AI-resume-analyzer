@@ -6,12 +6,14 @@ export async function GET(req: NextRequest) {
     const id = req.nextUrl.searchParams.get("id");
 
     if (!id) {
-      return new Response("Missing id", { status: 400 });
+      return new Response("Missing id", {
+        status: 400,
+      });
     }
 
     const { buffer, fileName } = await generateResumePDF(id);
 
-    return new Response(buffer, {
+    return new Response(new Uint8Array(buffer), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="${fileName}"`,
@@ -19,6 +21,9 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     console.error(err);
-    return new Response("Failed to generate PDF", { status: 500 });
+
+    return new Response("Failed to generate PDF", {
+      status: 500,
+    });
   }
 }
