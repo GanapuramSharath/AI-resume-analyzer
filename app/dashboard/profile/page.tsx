@@ -1,12 +1,10 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-import {prisma} from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import AvatarUpload from "@/components/profile/AvatarUpload";
-import AccountInfo from "@/components/profile/AccountInfo";
-import SocialLinks from "@/components/profile/SocialLinks";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -16,17 +14,16 @@ export default async function ProfilePage() {
   }
 
   const user = await prisma.user.findUnique({
-  where: {
-    id: session.user.id,
-  },
-  include: {
-    profile: true,
-  },
-});
-const avatar = user?.profile?.avatar ?? user?.image;
+    where: {
+      id: session.user.id,
+    },
+  });
+
   if (!user) {
     redirect("/login");
   }
+
+  const avatar = user.image;
 
   return (
     <div className="mx-auto max-w-5xl space-y-8 p-8">
@@ -38,9 +35,8 @@ const avatar = user?.profile?.avatar ?? user?.image;
       />
 
       <AvatarUpload image={avatar} name={user.name ?? ""} />
-      <AccountInfo user={user} profile={user.profile} />
 
-      <SocialLinks profile={user.profile} />
+      
     </div>
   );
 }
