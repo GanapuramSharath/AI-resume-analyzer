@@ -3,21 +3,21 @@
 import { UploadCloud } from "lucide-react";
 
 type UploadBoxProps = {
-  dragActive: boolean;
-  onBrowse: () => void;
-  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
+  dragActive?: boolean;
+  onBrowse?: () => void;
+  onDragEnter?: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave?: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver?: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDrop?: (e: React.DragEvent<HTMLDivElement>) => void;
 };
 
 export default function UploadBox({
-  dragActive,
-  onBrowse,
-  onDragEnter,
-  onDragLeave,
-  onDragOver,
-  onDrop,
+  dragActive = false,
+  onBrowse = () => {},
+  onDragEnter = () => {},
+  onDragLeave = () => {},
+  onDragOver = () => {},
+  onDrop = () => {},
 }: UploadBoxProps) {
   return (
     <div
