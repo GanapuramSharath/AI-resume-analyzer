@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { razorpay } from "@/lib/razorpay";
+import { getRazorpay } from "@/lib/razorpay";
 
 export async function POST() {
   try {
@@ -36,16 +36,17 @@ export async function POST() {
     // ₹499.00
     const amount = 49900;
 
-    const order = await razorpay.orders.create({
-      amount,
-      currency: "INR",
-      receipt: `receipt_${Date.now()}`,
-      notes: {
-        userId: user.id,
-        email: user.email ?? "",
-      },
-    });
+ const razorpay = getRazorpay();
 
+ const order = await razorpay.orders.create({
+   amount,
+   currency: "INR",
+   receipt: `receipt_${Date.now()}`,
+   notes: {
+     userId: user.id,
+     email: user.email ?? "",
+   },
+ });
     return NextResponse.json({
       success: true,
       order,
