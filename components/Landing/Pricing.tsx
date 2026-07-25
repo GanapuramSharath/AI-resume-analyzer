@@ -34,12 +34,10 @@ export default function Pricing() {
         <p className="text-blue-600 font-semibold uppercase tracking-widest">
           Pricing
         </p>
-
-        <h2 className="text-5xl font-bold mt-3">Choose Your Plan</h2>
-
+        <h2 className="text-5xl font-bold mt-3">Choose Your Plan</h2>=
         <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-          Start for free and upgrade whenever you're ready to unlock AI-powered
-          resume optimization.
+          Start for free and upgrade whenever you&apos;re ready to unlock
+          AI-powered resume optimization.
         </p>
       </div>
 

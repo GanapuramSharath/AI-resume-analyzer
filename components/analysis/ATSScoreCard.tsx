@@ -29,7 +29,7 @@ export default function ATSScoreCard({ score }: ATSScoreCardProps) {
             <h3 className={`text-3xl font-bold ${color}`}>{title}</h3>
 
             <p className="mt-2 text-gray-500">
-              Your resume's ATS compatibility score.
+              Your resume&apos;s ATS compatibility score.
             </p>
           </div>
 

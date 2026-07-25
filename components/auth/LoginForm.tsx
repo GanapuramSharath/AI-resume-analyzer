@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import Link from "next/link";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function LoginForm() {
@@ -103,10 +103,10 @@ export default function LoginForm() {
         <GoogleLoginButton />
 
         <p className="mt-5 text-center">
-          Don't have an account?{" "}
-          <a href="/register" className="text-blue-600 hover:underline">
+          {"Don't have an account? "}
+          <Link href="/register" className="text-blue-600 hover:underline">
             Register
-          </a>
+          </Link>
         </p>
       </form>
     </div>
