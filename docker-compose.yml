@@ -1,12 +1,13 @@
 version: "3.9"
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
 
-    container_name: my-next-app
+  app:
+    build: .
+
+    container_name: resume-app
+
+    restart: unless-stopped
 
     ports:
       - "3000:3000"
@@ -14,10 +15,23 @@ services:
     env_file:
       - .env
 
-    restart: unless-stopped
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+
+    container_name: resume-worker
+
+    command: npm run worker
+
+    env_file:
+      - .env
 
     depends_on:
       - redis
+
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine

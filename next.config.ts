@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   serverExternalPackages: ["pdf-parse"],
   devIndicators: false,
+  output: "standalone",
 
   images: {
     remotePatterns: [
