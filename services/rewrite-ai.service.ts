@@ -1,6 +1,5 @@
 import { buildRewritePrompt } from "@/services/ai/prompts/rewrite.prompt";
-import { ollama } from "@/lib/ollama";
-import { OLLAMA_MODEL } from "@/lib/ollama-model";
+import { askAI } from "@/lib/ai-provider";
 
 export async function rewriteResume(jobDescription: string, analysis: any) {
   const prompt = await buildRewritePrompt(jobDescription, analysis);
@@ -16,24 +15,11 @@ export async function rewriteResume(jobDescription: string, analysis: any) {
   console.log(prompt);
   console.log("====================================");
 
-  const response = await ollama.generate({
-    model: OLLAMA_MODEL,
-    prompt,
-    stream: false,
-    format: "json",
-    options: {
-      temperature: 0,
-      top_p: 0.8,
-      num_ctx: 8192,
-      num_predict: 4096,
-    },
-  });
-
+const response = await askAI(prompt, true);
   console.log("========== RAW REWRITE ==========");
-  console.log(response.response);
-  console.log("=================================");
+  console.log(response);
 
-  let jsonText = response.response
+  let jsonText = response
     .replace(/```json/gi, "")
     .replace(/```/g, "")
     .trim();

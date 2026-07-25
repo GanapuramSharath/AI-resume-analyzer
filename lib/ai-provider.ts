@@ -3,7 +3,12 @@ import { OLLAMA_MODEL } from "./ollama-model";
 import { getGroq } from "./groq";
 
 export async function askAI(prompt: string, json = false) {
-  const provider = process.env.AI_PROVIDER ?? "ollama";
+  // Normalize provider value
+  const provider = (process.env.AI_PROVIDER ?? "ollama").trim().toLowerCase();
+
+  console.log("================================");
+  console.log("AI Provider:", provider);
+  console.log("================================");
 
   //----------------------------------------------------------
   // Ollama
@@ -29,31 +34,41 @@ export async function askAI(prompt: string, json = false) {
   //----------------------------------------------------------
   // Groq
   //----------------------------------------------------------
-const groq = getGroq();
-  const response = await groq.chat.completions.create({
-    model: process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile",
 
-    messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
+  if (provider === "groq") {
+    const groq = getGroq();
 
-    temperature: 0.15,
+    const response = await groq.chat.completions.create({
+      model: process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile",
 
-    response_format: json
-      ? {
-          type: "json_object",
-        }
-      : undefined,
-  });
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
 
-  const content = response.choices[0]?.message?.content;
+      temperature: 0.15,
 
-  if (!content) {
-    throw new Error("Groq returned an empty response.");
+      response_format: json
+        ? {
+            type: "json_object",
+          }
+        : undefined,
+    });
+
+    const content = response.choices[0]?.message?.content;
+
+    if (!content) {
+      throw new Error("Groq returned an empty response.");
+    }
+
+    return content;
   }
 
-  return content;
+  //----------------------------------------------------------
+  // Invalid Provider
+  //----------------------------------------------------------
+
+  throw new Error(`Unsupported AI_PROVIDER: ${provider}`);
 }

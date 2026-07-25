@@ -1,4 +1,4 @@
-import { ollama } from "@/lib/ollama";
+import { askAI } from "@/lib/ai-provider";
 
 export async function generateSuggestions(
   structuredResume: any,
@@ -119,19 +119,9 @@ OUTPUT
 }
 `;
 
-  const response = await ollama.generate({
-    model: "qwen2.5:7b",
-    prompt,
-    stream: false,
-    format: "json",
-    options: {
-      temperature: 0.15,
-      top_p: 0.9,
-      num_ctx: 4096,
-    },
-  });
+ const response = await askAI(prompt, true);
 
-  let json = response.response
+  let json = response
     .replace(/```json/gi, "")
     .replace(/```/g, "")
     .trim();

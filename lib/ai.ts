@@ -1,21 +1,8 @@
-import { ollama } from "@/lib/ollama";
+import { askAI } from "@/lib/ai-provider";
 
 export async function analyzeResume(resumeText: string) {
-  const response = await ollama.generate({
-    model: "qwen2.5:7b",
-
-    stream: false,
-
-    keep_alive: "10m",
-
-    options: {
-      temperature: 0.1,
-      top_p: 0.9,
-      num_predict: 700,
-      repeat_penalty: 1.1,
-    },
-
-    prompt: `
+  const response = await askAI(
+    `
 You are an expert ATS Resume Analyzer and Senior Technical Recruiter.
 
 Analyze ONLY the uploaded resume.
@@ -121,9 +108,7 @@ Example:
    "match":82,
    "reason":"Relevant frontend projects."
  }
-]
-
-For each role provide:
+]For each role provide:
 
 - title
 - match (integer 0-100)
@@ -172,14 +157,15 @@ Resume:
 
 ${resumeText}
 `,
-  });
+    true,
+  );
 
   console.log("========== RAW AI RESPONSE ==========");
-  console.log(response.response);
+  console.log(response);
   console.log("=====================================");
-  try {
-    const analysis = JSON.parse(response.response);
 
+  try {
+    const analysis = JSON.parse(response);
     return {
       atsScore: analysis.atsScore ?? 0,
 
@@ -200,7 +186,7 @@ ${resumeText}
   } catch (error) {
     console.dir(response, { depth: null });
 
-    console.error(response.response);
+    console.error(response);
 
     throw new Error("Qwen returned invalid JSON.");
   }
