@@ -1,36 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 AI Resume Analyzer
 
-## Getting Started
+An AI-powered Resume Analyzer that evaluates resumes using ATS principles, generates personalized improvement suggestions, tailors resumes for specific job descriptions, and provides recruiter-friendly feedback.
 
-First, run the development server:
+## ✨ Features
+
+- 🔐 Google & Email Authentication (NextAuth)
+- 📄 Upload PDF/DOC/DOCX resumes
+- 🤖 AI-powered ATS Resume Analysis
+- 📊 ATS Score with detailed insights
+- 🎯 Resume Tailoring based on Job Description
+- 💡 Personalized improvement suggestions
+- 📚 Resume history
+- ☁️ AWS S3 file storage
+- ⚡ Redis caching for faster analysis
+- 🐳 Dockerized deployment
+- 🔄 Background worker processing
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- Next.js API Routes
+- Prisma ORM
+- PostgreSQL
+- Redis
+
+### Authentication
+- NextAuth.js
+- Google OAuth
+- Credentials Authentication
+
+### AI
+- Groq API
+- Llama 3.3 70B Versatile
+
+### Cloud
+- AWS S3
+- Docker
+- Docker Compose
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+
+> Add dashboard screenshot here
+
+### Resume Analysis
+
+> Add ATS analysis screenshot here
+
+### Resume Tailoring
+
+> Add tailoring screenshot here
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file.
+
+```env
+DATABASE_URL=
+
+AUTH_SECRET=
+AUTH_URL=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+AI_PROVIDER=groq
+
+GROQ_API_KEY=
+GROQ_MODEL=llama-3.3-70b-versatile
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+AWS_BUCKET_NAME=
+
+REDIS_URL=
+```
+
+---
+
+## 🚀 Running Locally
+
+Clone the repository
+
+```bash
+git clone https://github.com/GanapuramSharath/AI-resume-analyzer.git
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+Run migrations
+
+```bash
+npx prisma migrate deploy
+```
+
+Start development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🐳 Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build and start containers
 
-## Learn More
+```bash
+docker compose up --build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Stop containers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker compose down
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📂 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+components/
+lib/
+services/
+workers/
+prisma/
+public/
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🎥 Demo
+
+Live Demo:
+
+```
+https://your-domain.com
+```
+
+Demo Video:
+
+```
+https://youtu.be/your-video
+```
+
+---
+
+## 📈 Future Improvements
+
+- Resume version comparison
+- AI Interview Preparation
+- Cover Letter Generator
+- Recruiter Dashboard
+- Resume Templates
+- Analytics Dashboard
+
+---
+
+## 👨‍💻 Author
+
+**Sharath Teja**
+
+GitHub:
+https://github.com/GanapuramSharath
+
+LinkedIn:
+https://www.linkedin.com/in/sharath-teja-ganapuram-340246259/
+Live Demo:http://sharathairesume.duckdns.org:3000/
+
+---
+
+⭐ If you found this project useful, consider giving it a star.
