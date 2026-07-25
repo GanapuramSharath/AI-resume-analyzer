@@ -1,6 +1,6 @@
 import { ollama } from "./ollama";
 import { OLLAMA_MODEL } from "./ollama-model";
-import { groq } from "./groq";
+import { getGroq } from "./groq";
 
 export async function askAI(prompt: string, json = false) {
   const provider = process.env.AI_PROVIDER ?? "ollama";
@@ -29,7 +29,7 @@ export async function askAI(prompt: string, json = false) {
   //----------------------------------------------------------
   // Groq
   //----------------------------------------------------------
-
+const groq = getGroq();
   const response = await groq.chat.completions.create({
     model: process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile",
 
