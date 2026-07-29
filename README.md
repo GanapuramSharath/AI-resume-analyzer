@@ -46,21 +46,6 @@ An AI-powered Resume Analyzer that evaluates resumes using ATS principles, gener
 - Docker
 - Docker Compose
 
----
-
-## 📸 Screenshots
-
-### Dashboard
-
-> Add dashboard screenshot here
-
-### Resume Analysis
-
-> Add ATS analysis screenshot here
-
-### Resume Tailoring
-
-> Add tailoring screenshot here
 
 ---
 
