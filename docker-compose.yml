@@ -18,20 +18,6 @@ services:
     depends_on:
       - redis
 
-  worker:
-    build: .
-
-    container_name: resume-worker
-
-    command: npm run worker
-
-    env_file:
-      - .env
-
-    depends_on:
-      - redis
-
-    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
