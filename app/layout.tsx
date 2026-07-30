@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import "./globals.css";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -20,19 +21,19 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Analyze your resume with AI, receive ATS compatibility scores, identify weaknesses, and get personalized suggestions to improve your chances of landing interviews.",
+    "Free AI Resume Analyzer that checks ATS compatibility, analyzes resumes, identifies weak points, and provides personalized suggestions to improve interview success.",
 
   keywords: [
     "AI Resume Analyzer",
     "ATS Resume Checker",
-    "Resume Review",
     "Resume Scanner",
-    "AI Resume Builder",
-    "Resume Feedback",
+    "Resume Review",
     "Resume Optimization",
-    "Job Application",
-    "Career",
+    "Resume Score",
+    "Resume Feedback",
     "ATS Score",
+    "Resume AI",
+    "Career Tools",
   ],
 
   authors: [
@@ -43,34 +44,62 @@ export const metadata: Metadata = {
 
   creator: "Ganapuram Sharath Teja",
 
+  publisher: "AI Resume Analyzer",
+
   metadataBase: new URL("https://sharathairesume.duckdns.org"),
 
   alternates: {
     canonical: "/",
   },
 
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
   openGraph: {
-    title: "AI Resume Analyzer",
+    title: "AI Resume Analyzer | Free ATS Resume Checker",
     description:
-      "Get AI-powered resume analysis and ATS compatibility feedback instantly.",
+      "Analyze your resume with AI, improve ATS compatibility, and receive personalized feedback to increase your interview success.",
+
     url: "https://sharathairesume.duckdns.org",
+
     siteName: "AI Resume Analyzer",
+
     locale: "en_US",
+
     type: "website",
+
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Resume Analyzer",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
+
     title: "AI Resume Analyzer",
-    description:
-      "Improve your resume with AI-powered ATS analysis and feedback.",
+
+    description: "Analyze your resume using AI and improve your ATS score.",
+
+    images: ["/og-image.png"],
   },
 
-  robots: {
-    index: true,
-    follow: true,
-  },
+  category: "technology",
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -80,11 +109,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="beforeInteractive"
         />
       </body>
+
       <GoogleAnalytics gaId="G-SJQYSQZVF8" />
     </html>
   );
