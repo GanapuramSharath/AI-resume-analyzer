@@ -99,7 +99,43 @@ export const metadata: Metadata = {
 
   category: "technology",
 };
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
 
+  name: "AI Resume Analyzer",
+
+  applicationCategory: "BusinessApplication",
+
+  operatingSystem: "Web",
+
+  url: "https://sharathairesume.duckdns.org",
+
+  image: "https://sharathairesume.duckdns.org/og-image.png",
+
+  description:
+    "AI-powered Resume Analyzer that checks ATS compatibility, analyzes resumes, provides resume scores, identifies missing keywords, and gives personalized suggestions.",
+
+  creator: {
+    "@type": "Person",
+    name: "Ganapuram Sharath Teja",
+  },
+
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+
+  featureList: [
+    "AI Resume Analysis",
+    "ATS Resume Checker",
+    "Resume Score",
+    "Keyword Suggestions",
+    "Resume Feedback",
+    "Job Description Matching",
+  ],
+};
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -108,6 +144,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
         {children}
 
         <Script
