@@ -7,21 +7,26 @@ You are an expert ATS Resume Analyzer and Senior Technical Recruiter.
 
 Analyze ONLY the uploaded resume.
 
+IMPORTANT
+
+Do NOT calculate an ATS Score.
+The application calculates the ATS score separately.
+
+Your responsibility is recruiter analysis only.
+
 RULES
 
-- Never invent skills, projects, experience, certifications, education, achievements, companies, links, or technologies.
+- Never invent skills, projects, experience, certifications, education, achievements, companies, links or technologies.
 - Evaluate only what is explicitly written.
 - If information is absent, treat it as missing.
-- Never report existing skills or technologies as missing.
+- Never report existing skills as missing.
 - Ignore minor spelling mistakes unless they reduce readability.
-- Do not compare against a job description.
 - Return ONLY valid JSON.
 - No markdown.
 - No explanations.
 
 Evaluate:
 
-- ATS Compatibility
 - Formatting
 - Readability
 - Professional Summary
@@ -29,129 +34,95 @@ Evaluate:
 - Projects
 - Skills
 - Education
-- Achievements
 - Leadership
+- Achievements
 - Quantified Impact
-- Technical Skills
-- Keywords
+- ATS Compatibility
 - Professionalism
-- Grammar
-- Structure
 
-ATS Score
-
-Return one integer between 0 and 100.
-
-Guide:
-
-90–100 Excellent
-
-80–89 Strong
-
-70–79 Good
-
-60–69 Average
-
-Below 60 Needs Significant Improvement
-
-Output JSON
+Output JSON:
 
 {
-  "atsScore": 0,
-  "summary": "",
+  "recruiterVerdict": {
+    "overall": "",
+    "interviewReadiness": "",
+    "confidence": ""
+  },
+
   "strengths": [],
-  "weaknesses": [],
+
+  "issues": [],
+
   "missingKeywords": [],
+
   "improvements": [],
-  "jobMatches": [
-    {
-      "title": "",
-      "match": 0,
-      "reason": ""
-    }
-  ]
+
+  "jobMatches": []
+}
+  Recruiter Verdict
+
+Return:
+
+{
+  "overall": "",
+  "interviewReadiness": "Excellent | Good | Fair | Needs Improvement",
+  "confidence": "High | Medium | Low"
 }
 
-Requirements
+Strengths
 
-jobMatches is REQUIRED.
+Return 3–6 genuine strengths.
 
-Return exactly 5 objects.
+Each strength:
 
-Never omit jobMatches.
+{
+  "title":"",
+  "description":""
+}
 
-Example:
+Issues
 
-"jobMatches":[
- {
-   "title":"Frontend Developer",
-   "match":94,
-   "reason":"Strong React and JavaScript experience."
- },
- {
-   "title":"Software Engineer",
-   "match":90,
-   "reason":"Good programming and project experience."
- },
- {
-   "title":"Full Stack Developer",
-   "match":88,
-   "reason":"Experience across frontend and backend."
- },
- {
-   "title":"Technology Analyst",
-   "match":84,
-   "reason":"Strong analytical and problem-solving skills."
- },
- {
-   "title":"Web Developer",
-   "match":82,
-   "reason":"Relevant frontend projects."
- }
-]For each role provide:
+Return 3–6 genuine issues.
 
-- title
-- match (integer 0-100)
-- reason (one concise sentence)
+Each issue:
 
-Only recommend roles supported by the resume.
+{
+  "title":"",
+  "severity":"High | Medium | Low",
+  "reason":"",
+  "fix":""
+}
 
-Never invent experience.
+Missing Keywords
 
-Return ONLY valid JSON.
+Return only keywords genuinely missing.
 
-summary
-- 2–4 concise sentences.
-- Mention strongest areas and biggest improvement opportunities.
+Maximum 10.
 
-strengths
-- Exactly 5 factual items.
-- Maximum 18 words each.
+Improvements
 
-weaknesses
-- Exactly 5 factual weaknesses.
-- Do not invent problems.
-- Do not recommend unrelated technologies.
+Return 3–6 actionable recommendations.
 
-missingKeywords
-- Include only keywords genuinely missing for the candidate's profession.
-- Never include keywords already present.
-- Maximum 10 keywords.
-- Return [] if none.
+Job Matches
 
-improvements
-- Exactly 5 actionable recommendations.
-- Each should address one weakness.
-- Maximum 20 words each.
+Return exactly five objects.
+
+Each object:
+
+{
+  "title":"",
+  "match":0,
+  "reason":""
+}
 
 Before responding verify:
 
 - Valid JSON
-- Integer atsScore
-- Exactly 5 strengths
-- Exactly 5 weaknesses
-- Exactly 5 improvements
-- No hallucinated information
+- recruiterVerdict exists
+- strengths exists
+- issues exists
+- jobMatches has exactly 5 objects
+- No hallucinations
 
 Resume:
 
@@ -163,31 +134,67 @@ ${resumeText}
   console.log("========== RAW AI RESPONSE ==========");
   console.log(response);
   console.log("=====================================");
-
   try {
     const analysis = JSON.parse(response);
+
+    const recruiterVerdict =
+      analysis.recruiterVerdict && typeof analysis.recruiterVerdict === "object"
+        ? {
+            overall:
+              analysis.recruiterVerdict.overall?.trim() ||
+              "The resume demonstrates relevant technical skills.",
+
+            interviewReadiness:
+              analysis.recruiterVerdict.interviewReadiness ||
+              "Needs Improvement",
+
+            confidence: analysis.recruiterVerdict.confidence || "Medium",
+          }
+        : {
+            overall: "The resume demonstrates relevant technical skills.",
+            interviewReadiness: "Needs Improvement",
+            confidence: "Medium",
+          };
+
+    const strengths = Array.isArray(analysis.strengths)
+      ? analysis.strengths
+      : [];
+
+    const issues = Array.isArray(analysis.issues) ? analysis.issues : [];
+
+    const missingKeywords = Array.isArray(analysis.missingKeywords)
+      ? analysis.missingKeywords
+      : [];
+
+    const improvements = Array.isArray(analysis.improvements)
+      ? analysis.improvements
+      : [];
+
+    const jobMatches = Array.isArray(analysis.jobMatches)
+      ? analysis.jobMatches
+      : [];
+
     return {
-      atsScore: analysis.atsScore ?? 0,
+      atsScore: 0,
 
-      summary:
-        analysis.summary?.trim() ||
-        "This resume demonstrates relevant technical skills and project experience.",
+      recruiterVerdict,
 
-      strengths: analysis.strengths ?? [],
+      strengths,
 
-      weaknesses: analysis.weaknesses ?? [],
+      issues,
 
-      missingKeywords: analysis.missingKeywords ?? [],
+      summary: recruiterVerdict.overall,
 
-      improvements: analysis.improvements ?? [],
+      weaknesses: issues.map((issue: any) => issue.reason),
 
-      jobMatches: analysis.jobMatches ?? [],
+      missingKeywords,
+
+      improvements,
+
+      jobMatches,
     };
   } catch (error) {
-    console.dir(response, { depth: null });
-
     console.error(response);
-
-    throw new Error("Qwen returned invalid JSON.");
+    throw new Error("AI returned invalid JSON.");
   }
 }
