@@ -7,15 +7,14 @@ const Navbar = () => {
       <div className="">
         <ul className="flex items-center gap-8">
           <li>
-            <Link href="/">Features</Link>
+            <Link href="#features">Features</Link>
           </li>
           <li>
-            <Link href="/">Pricing</Link>
+            <Link href="#pricing">Pricing</Link>
           </li>
           <li>
             <Link
-              href="/register
-              "
+              href="/register"
               className="bg-black text-white px-5 py-2 rounded-xl"
             >
               Get Started

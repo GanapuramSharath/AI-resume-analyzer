@@ -4,13 +4,12 @@ import { redirect, notFound } from "next/navigation";
 
 import {
   AnalysisLayout,
-  AnalysisHeader,
-  ATSScoreCard,
-  SummaryCard,
-  StrengthsCard,
-  WeaknessesCard,
-  MissingKeywordsCard,
-  ImprovementsCard,
+  ResumeAuditHeader,
+  ResumeStatusCard,
+  ResumeStrengthsCard,
+  RecruiterVerdictCard,
+  ProblemList,
+  AnalysisActions,
 } from "@/components/analysis";
 
 type Props = {
@@ -47,34 +46,55 @@ export default async function ResumePage({ params }: Props) {
   if (!analysis) {
     return (
       <AnalysisLayout>
-        <section className="rounded-3xl border bg-white p-10 shadow-sm">
-          <h1 className="mb-4 text-3xl font-bold">Resume Analysis</h1>
+        <section className="rounded-3xl border border-gray-200 bg-white p-10 shadow-sm">
+          <h1 className="mb-4 text-3xl font-bold text-gray-900">
+            Analysis Unavailable
+          </h1>
 
-          <p className="text-gray-500">No analysis found for this resume.</p>
+          <p className="text-gray-600">
+            We couldn't find an analysis for this resume. Please upload your
+            resume again to generate a new report.
+          </p>
         </section>
       </AnalysisLayout>
     );
   }
 
+  // Safe extraction
+  const weaknesses = (analysis.weaknesses as string[]) ?? [];
+  const missingKeywords = (analysis.missingKeywords as string[]) ?? [];
+  const strengths = (analysis.strengths as string[]) ?? [];
+  const improvements = (analysis.improvements as string[]) ?? [];
+
+  const issuesCount = weaknesses.length + missingKeywords.length;
+
   return (
     <AnalysisLayout>
-      <AnalysisHeader
+      <ResumeAuditHeader
         fileName={resume.fileName}
         uploadedAt={resume.createdAt}
-        processingTime="12.4 seconds"
+        atsScore={analysis.atsScore}
+        issuesCount={issuesCount}
       />
 
-      <ATSScoreCard score={analysis.atsScore} />
+      <ResumeStatusCard
+        atsScore={analysis.atsScore}
+        issuesCount={issuesCount}
+      />
 
-      <SummaryCard summary={analysis.summary} />
+      <ProblemList
+        weaknesses={weaknesses}
+        missingKeywords={missingKeywords}
+        improvements={improvements}
+      />
 
-      <StrengthsCard strengths={analysis.strengths as string[]} />
+      <ResumeStrengthsCard strengths={strengths} />
 
-      <WeaknessesCard weaknesses={analysis.weaknesses as string[]} />
+      <RecruiterVerdictCard summary={analysis.summary} />
 
-      <MissingKeywordsCard keywords={analysis.missingKeywords as string[]} />
-
-      <ImprovementsCard improvements={analysis.improvements as string[]} />
+      {resume.fileUrl && (
+        <AnalysisActions resumeId={resume.id} fileUrl={resume.fileUrl} />
+      )}
     </AnalysisLayout>
   );
 }
