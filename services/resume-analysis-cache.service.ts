@@ -3,26 +3,36 @@ import crypto from "crypto";
 import { analyzeResume } from "@/lib/ai";
 import { redis } from "@/lib/redis";
 
+const CACHE_VERSION = "resume-analysis-v2";
+const CACHE_TTL = 60 * 60 * 24; // 24 hours
+
 export async function getResumeAnalysis(resumeText: string) {
   //--------------------------------------------------
-  // Create Cache Key
+  // Create Versioned Cache Key
   //--------------------------------------------------
 
-  const cacheKey = crypto.createHash("sha256").update(resumeText).digest("hex");
+  const cacheKey =
+    CACHE_VERSION +
+    ":" +
+    crypto.createHash("sha256").update(resumeText).digest("hex");
 
   //--------------------------------------------------
-  // Check Redis
+  // Check Redis Cache
   //--------------------------------------------------
 
-  const cached = await redis.get(cacheKey);
+  try {
+    const cached = await redis.get(cacheKey);
 
-  if (cached) {
-    console.log("✅ RESUME CACHE HIT");
+    if (cached) {
+      console.log("✅ RESUME CACHE HIT");
 
-    return JSON.parse(cached);
+      return JSON.parse(cached);
+    }
+
+    console.log("❌ RESUME CACHE MISS");
+  } catch (error) {
+    console.error("Redis read failed:", error);
   }
-
-  console.log("❌ RESUME CACHE MISS");
 
   //--------------------------------------------------
   // AI Analysis
@@ -34,14 +44,13 @@ export async function getResumeAnalysis(resumeText: string) {
   // Save Cache
   //--------------------------------------------------
 
-  await redis.set(
-    cacheKey,
-    JSON.stringify(analysis),
-    "EX",
-    60 * 60 * 24, // 24 hours
-  );
+  try {
+    await redis.set(cacheKey, JSON.stringify(analysis), "EX", CACHE_TTL);
 
-  console.log("💾 Resume Analysis Saved to Redis");
+    console.log("💾 Resume Analysis Saved to Redis");
+  } catch (error) {
+    console.error("Redis write failed:", error);
+  }
 
   return analysis;
 }

@@ -1,7 +1,12 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 
+type Strength = {
+  title: string;
+  description: string;
+};
+
 type ResumeStrengthsCardProps = {
-  strengths: string[];
+  strengths: Strength[];
 };
 
 export default function ResumeStrengthsCard({
@@ -9,7 +14,6 @@ export default function ResumeStrengthsCard({
 }: ResumeStrengthsCardProps) {
   return (
     <section className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-      {/* Header */}
       <div className="mb-8 flex items-center gap-4">
         <div className="rounded-2xl bg-green-100 p-4">
           <Sparkles className="h-7 w-7 text-green-600" />
@@ -51,10 +55,12 @@ export default function ResumeStrengthsCard({
 
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-900">
-                    Strength {index + 1}
+                    {strength.title || `Strength ${index + 1}`}
                   </h3>
 
-                  <p className="mt-3 leading-7 text-gray-700">{strength}</p>
+                  <p className="mt-3 leading-7 text-gray-700">
+                    {strength.description}
+                  </p>
                 </div>
               </div>
             </div>

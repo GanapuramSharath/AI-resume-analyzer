@@ -18,6 +18,11 @@ type Props = {
   }>;
 };
 
+type Strength = {
+  title: string;
+  description: string;
+};
+
 export default async function ResumePage({ params }: Props) {
   const session = await auth();
 
@@ -60,11 +65,21 @@ export default async function ResumePage({ params }: Props) {
     );
   }
 
-  // Safe extraction
-  const weaknesses = (analysis.weaknesses as string[]) ?? [];
-  const missingKeywords = (analysis.missingKeywords as string[]) ?? [];
-  const strengths = (analysis.strengths as string[]) ?? [];
-  const improvements = (analysis.improvements as string[]) ?? [];
+  const weaknesses = Array.isArray(analysis.weaknesses)
+    ? (analysis.weaknesses as string[])
+    : [];
+
+  const missingKeywords = Array.isArray(analysis.missingKeywords)
+    ? (analysis.missingKeywords as string[])
+    : [];
+
+  const improvements = Array.isArray(analysis.improvements)
+    ? (analysis.improvements as string[])
+    : [];
+
+  const strengths = Array.isArray(analysis.strengths)
+    ? (analysis.strengths as Strength[])
+    : [];
 
   const issuesCount = weaknesses.length + missingKeywords.length;
 

@@ -12,8 +12,13 @@ export default function ProblemList({
   missingKeywords,
   improvements,
 }: ProblemListProps) {
+  const safeWeaknesses = weaknesses.filter(Boolean);
+  const safeKeywords = missingKeywords.filter(Boolean);
+  const safeImprovements = improvements.filter(Boolean);
+
   return (
     <section className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
+      {/* Header */}
       <div className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">
           Priority Fixes
@@ -49,7 +54,7 @@ export default function ProblemList({
             </div>
           </div>
 
-          {weaknesses.length === 0 ? (
+          {safeWeaknesses.length === 0 ? (
             <div className="rounded-2xl border border-green-200 bg-green-50 p-5">
               <p className="font-medium text-green-700">
                 No major weaknesses detected.
@@ -57,7 +62,7 @@ export default function ProblemList({
             </div>
           ) : (
             <div className="space-y-4">
-              {weaknesses.map((item, index) => (
+              {safeWeaknesses.map((item, index) => (
                 <ProblemCard
                   key={`weakness-${index}`}
                   title={`Issue ${index + 1}`}
@@ -88,7 +93,7 @@ export default function ProblemList({
             </div>
           </div>
 
-          {missingKeywords.length === 0 ? (
+          {safeKeywords.length === 0 ? (
             <div className="rounded-2xl border border-green-200 bg-green-50 p-5">
               <p className="font-medium text-green-700">
                 No important keywords are missing.
@@ -96,12 +101,13 @@ export default function ProblemList({
             </div>
           ) : (
             <div className="space-y-4">
-              {missingKeywords.map((item, index) => (
+              {safeKeywords.map((keyword, index) => (
                 <ProblemCard
                   key={`keyword-${index}`}
-                  title={item}
+                  title={keyword}
                   description="This keyword was not detected in your resume and may be expected by recruiters or ATS systems."
                   type="keyword"
+                  index={index}
                 />
               ))}
             </div>
@@ -126,7 +132,7 @@ export default function ProblemList({
             </div>
           </div>
 
-          {improvements.length === 0 ? (
+          {safeImprovements.length === 0 ? (
             <div className="rounded-2xl border border-green-200 bg-green-50 p-5">
               <p className="font-medium text-green-700">
                 No additional improvements suggested.
@@ -134,7 +140,7 @@ export default function ProblemList({
             </div>
           ) : (
             <div className="space-y-4">
-              {improvements.map((item, index) => (
+              {safeImprovements.map((item, index) => (
                 <ProblemCard
                   key={`improvement-${index}`}
                   title={`Recommendation ${index + 1}`}

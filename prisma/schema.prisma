@@ -111,19 +111,23 @@ model Resume {
 
   @@index([userId])
 }
-
 model ResumeAnalysis {
   id String @id @default(cuid())
 
   resumeId String
 
   atsScore Int
-  summary  String @db.Text
 
-  strengths       Json
-  weaknesses      Json
+  summary String @db.Text
+
+  recruiterVerdict Json?
+
+  strengths Json
+  issues Json?
+
+  weaknesses Json
   missingKeywords Json
-  improvements    Json
+  improvements Json
 
   jobMatches Json?
 
@@ -133,6 +137,7 @@ model ResumeAnalysis {
 
   @@index([resumeId])
 }
+
 
 model ResumeTailoring {
   id String @id @default(cuid())
