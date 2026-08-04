@@ -21,12 +21,12 @@ export default function RecruiterVerdictCard({
           </p>
 
           <h2 className="mt-1 text-3xl font-bold text-gray-900">
-            Recruiter's Verdict
+            Recruiter&apos;s Verdict
           </h2>
 
           <p className="mt-2 text-gray-600">
-            A recruiter-focused summary of your resume's overall quality and
-            interview readiness.
+            A recruiter-focused summary of your resume&apos;s overall quality
+            and interview readiness.
           </p>
         </div>
       </div>

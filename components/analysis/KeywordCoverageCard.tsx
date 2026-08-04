@@ -90,9 +90,10 @@ export default function KeywordCoverageCard({
             <h3 className="font-semibold text-blue-900">💡 Pro Tip</h3>
 
             <p className="mt-2 leading-7 text-blue-800">
-              Don't add keywords just to increase your ATS score. Only include
-              skills and technologies you genuinely possess, and incorporate
-              them naturally into your projects, experience, or skills section.
+              Don&apos;t add keywords just to increase your ATS score. Only
+              include skills and technologies you genuinely possess, and
+              incorporate them naturally into your projects, experience, or
+              skills section.
             </p>
           </div>
         </>

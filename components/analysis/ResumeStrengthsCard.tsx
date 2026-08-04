@@ -25,7 +25,7 @@ export default function ResumeStrengthsCard({
           </p>
 
           <h2 className="mt-1 text-3xl font-bold text-gray-900">
-            What's Working Well
+            What&apos;s Working Well
           </h2>
 
           <p className="mt-2 max-w-2xl text-gray-600">
