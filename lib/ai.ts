@@ -37,6 +37,7 @@ IMPORTANT
 Return exactly this JSON:
 
 {
+
   "recruiterVerdict": {
     "overall": "",
     "interviewReadiness": "Excellent | Good | Fair | Needs Improvement",
@@ -132,7 +133,7 @@ ${resumeText}
 
     return {
       // Temporary until ATS scoring is reconnected
-      atsScore: 75,
+      atsScore:0,
 
       recruiterVerdict,
 

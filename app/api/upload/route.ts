@@ -4,7 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { getResumeAnalysis } from "@/services/resume-analysis-cache.service";
 import { extractResumeText } from "@/lib/extractor";
 import { uploadResume } from "@/lib/uploadResume";
-
+import { parseResume } from "@/services/resume-parser.service";
+import { structureResume } from "@/services/resume-structure.service";
+import { calculateSectionScores } from "@/services/section-score.service";
+import { calculateOverallSectionScore } from "@/services/section-score.service";
 export async function POST(request: Request) {
   try {
     const session = await auth();
@@ -52,6 +55,13 @@ export async function POST(request: Request) {
 
 
     const resumeText = await extractResumeText(file, buffer);
+    const parsedResume = parseResume(resumeText);
+
+    const structuredResume = structureResume(parsedResume);
+
+    const sectionScores = calculateSectionScores(structuredResume, []);
+
+    const resumeHealth = calculateOverallSectionScore(sectionScores);
 
     console.log("2. Text extracted");
     console.log("Text Extracted:", Date.now() - start, "ms");
@@ -70,6 +80,7 @@ export async function POST(request: Request) {
     const analysisStart = performance.now();
 
     const analysis = await getResumeAnalysis(resumeText);
+    analysis.atsScore = resumeHealth;
 
     const analysisEnd = performance.now();
 
