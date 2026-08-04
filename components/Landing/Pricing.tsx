@@ -39,8 +39,8 @@ export default function Pricing() {
         <h2 className="mt-3 text-5xl font-bold">Choose Your Plan</h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-gray-600">
-          Start for free and upgrade whenever you're ready to unlock AI-powered
-          resume optimization.
+          Start for free and upgrade whenever You&apos;re ready to unlock
+          AI-powered resume optimization.
         </p>
       </div>
 

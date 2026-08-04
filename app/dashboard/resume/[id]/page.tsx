@@ -57,8 +57,8 @@ export default async function ResumePage({ params }: Props) {
           </h1>
 
           <p className="text-gray-600">
-            We couldn't find an analysis for this resume. Please upload your
-            resume again to generate a new report.
+            We couldn&apos;t find an analysis for this resume. Please upload
+            your resume again to generate a new report.
           </p>
         </section>
       </AnalysisLayout>
