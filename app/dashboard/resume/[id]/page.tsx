@@ -9,7 +9,6 @@ import {
   ResumeStrengthsCard,
   RecruiterVerdictCard,
   ProblemList,
-  AnalysisActions,
 } from "@/components/analysis";
 
 type Props = {
@@ -107,9 +106,7 @@ export default async function ResumePage({ params }: Props) {
 
       <RecruiterVerdictCard summary={analysis.summary} />
 
-      {resume.fileUrl && (
-        <AnalysisActions resumeId={resume.id} fileUrl={resume.fileUrl} />
-      )}
+      
     </AnalysisLayout>
   );
 }
