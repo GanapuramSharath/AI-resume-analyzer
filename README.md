@@ -141,19 +141,7 @@ public/
 
 ---
 
-## 🎥 Demo
-
-Live Demo:
-
-```
-https://your-domain.com
-```
-
-Demo Video:
-
-```
-https://youtu.be/your-video
-```
+## 🎥 ScreenShots
 
 ---
 
@@ -177,7 +165,7 @@ https://github.com/GanapuramSharath
 
 LinkedIn:
 https://www.linkedin.com/in/sharath-teja-ganapuram-340246259/
-Live Demo:http://sharathairesume.duckdns.org:3000/
+Live Demo:https://sharathairesume.duckdns.org/
 
 ---
 
