@@ -141,9 +141,39 @@ public/
 
 ---
 
-## 🎥 ScreenShots
+## 🎥 Screenshots
 
----
+### Dashboard
+
+![Dashboard](public/screenshots/Screenshot%202026-09-05%20174940.png)
+
+### Resume Analysis
+
+![Resume Analysis](public/screenshots/Screenshot%202026-09-05%20175009.png)
+
+### Resume Audit
+
+![Resume Audit](public/screenshots/Screenshot%202026-09-05%20175025.png)
+
+### AI Recommendations
+
+![AI Recommendations](public/screenshots/Screenshot%202026-09-05%20175037.png)
+
+### Resume Improvements
+
+![Resume Improvements](public/screenshots/Screenshot%202026-09-05%20175043.png)
+
+### Additional Features
+
+![Feature Screenshot](public/screenshots/Screenshot%202026-09-05%20175049.png)
+
+### Career Match
+
+![Career Match](public/screenshots/Screenshot%202026-09-05%20175101.png)
+
+### Resume Tailoring
+
+![Resume Tailoring](public/screenshots/Screenshot%202026-09-05%20175145.png)
 
 ## 📈 Future Improvements
 
