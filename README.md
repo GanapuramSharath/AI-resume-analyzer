@@ -171,7 +171,7 @@ public/
 
 ![Career Match](public/screenshots/Screenshot%202026-09-05%20175101.png)
 
-### Resume Tailoring
+### Payments
 
 ![Resume Tailoring](public/screenshots/Screenshot%202026-09-05%20175145.png)
 
