@@ -44,7 +44,6 @@ export default async function DashboardPage() {
       <UploadCard />
 
       <RecentAnalysis recentAnalyses={recentAnalyses} />
-      
     </main>
   );
 }

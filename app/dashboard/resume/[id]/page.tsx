@@ -37,7 +37,10 @@ export default async function ResumePage({ params }: Props) {
       userId: session.user.id,
     },
     include: {
-      analyses: true,
+      analyses: {
+        orderBy: { createdAt: "desc" },
+        take: 1,
+      },
     },
   });
 
@@ -105,8 +108,6 @@ export default async function ResumePage({ params }: Props) {
       <ResumeStrengthsCard strengths={strengths} />
 
       <RecruiterVerdictCard summary={analysis.summary} />
-
-      
     </AnalysisLayout>
   );
 }
